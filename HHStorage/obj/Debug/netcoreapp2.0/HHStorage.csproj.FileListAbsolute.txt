@@ -1,0 +1,8 @@
+E:\HHStorage\HHStorage\bin\Debug\netcoreapp2.0\HHStorage.deps.json
+E:\HHStorage\HHStorage\bin\Debug\netcoreapp2.0\HHStorage.runtimeconfig.json
+E:\HHStorage\HHStorage\bin\Debug\netcoreapp2.0\HHStorage.runtimeconfig.dev.json
+E:\HHStorage\HHStorage\bin\Debug\netcoreapp2.0\HHStorage.dll
+E:\HHStorage\HHStorage\obj\Debug\netcoreapp2.0\HHStorage.csprojResolveAssemblyReference.cache
+E:\HHStorage\HHStorage\obj\Debug\netcoreapp2.0\HHStorage.csproj.CoreCompileInputs.cache
+E:\HHStorage\HHStorage\obj\Debug\netcoreapp2.0\HHStorage.AssemblyInfoInputs.cache
+E:\HHStorage\HHStorage\obj\Debug\netcoreapp2.0\HHStorage.AssemblyInfo.cs
