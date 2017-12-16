@@ -4,5 +4,22 @@
         <name>HHStorage</name>
     </assembly>
     <members>
+        <member name="T:HHStorage.Base.BaseController">
+            <summary>
+            控制器基底
+            </summary>
+        </member>
+        <member name="T:HHStorage.Controllers.UserController">
+            <summary>
+            使用者控制器
+            </summary>
+        </member>
+        <member name="M:HHStorage.Controllers.UserController.Get(System.String)">
+            <summary>
+            
+            </summary>
+            <param name="kk"></param>
+            <returns></returns>
+        </member>
     </members>
 </doc>

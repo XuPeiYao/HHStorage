@@ -6,12 +6,12 @@
   "compilationOptions": {},
   "targets": {
     ".NETCoreApp,Version=v2.0": {
-      "HHStorage.Models.API/1.0.0": {
+      "HHStorage.Client/1.0.0": {
         "dependencies": {
-          "Newtonsoft.Json": "10.0.3"
+          "HHStorage.Models.API": "1.0.0"
         },
         "runtime": {
-          "HHStorage.Models.API.dll": {}
+          "HHStorage.Client.dll": {}
         }
       },
       "Microsoft.CSharp/4.3.0": {
@@ -386,11 +386,19 @@
           "System.Threading": "4.3.0",
           "System.Xml.ReaderWriter": "4.3.0"
         }
+      },
+      "HHStorage.Models.API/1.0.0": {
+        "dependencies": {
+          "Newtonsoft.Json": "10.0.3"
+        },
+        "runtime": {
+          "HHStorage.Models.API.dll": {}
+        }
       }
     }
   },
   "libraries": {
-    "HHStorage.Models.API/1.0.0": {
+    "HHStorage.Client/1.0.0": {
       "type": "project",
       "serviceable": false,
       "sha512": ""
@@ -681,6 +689,11 @@
       "sha512": "sha512-lJ8AxvkX7GQxpC6GFCeBj8ThYVyQczx2+f/cWHJU8tjS7YfI6Cv6bon70jVEgs2CiFbmmM8b9j1oZVx0dSI2Ww==",
       "path": "system.xml.xmldocument/4.3.0",
       "hashPath": "system.xml.xmldocument.4.3.0.nupkg.sha512"
+    },
+    "HHStorage.Models.API/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
     }
   }
 }

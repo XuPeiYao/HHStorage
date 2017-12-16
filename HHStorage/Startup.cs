@@ -32,7 +32,7 @@ namespace HHStorage {
                     }
                  );
 
-                var filePath = Path.Combine(PlatformServices.Default.Application.ApplicationBasePath, "SharpDisk2.xml");
+                var filePath = Path.Combine(PlatformServices.Default.Application.ApplicationBasePath, "HHStorage.xml");
                 c.IncludeXmlComments(filePath);
             });
         }

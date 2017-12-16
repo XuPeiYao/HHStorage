@@ -13,7 +13,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="Base\" />
+    <Folder Include="Extensions\" />
     <Folder Include="wwwroot\" />
   </ItemGroup>
 
