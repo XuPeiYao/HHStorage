@@ -1,9 +1,0 @@
-E:\HHStorage\HHStorage.Models.EF\bin\Debug\netcoreapp2.0\HHStorage.Models.EF.deps.json
-E:\HHStorage\HHStorage.Models.EF\bin\Debug\netcoreapp2.0\HHStorage.Models.EF.dll
-E:\HHStorage\HHStorage.Models.EF\bin\Debug\netcoreapp2.0\HHStorage.Models.EF.pdb
-E:\HHStorage\HHStorage.Models.EF\obj\Debug\netcoreapp2.0\HHStorage.Models.EF.csprojResolveAssemblyReference.cache
-E:\HHStorage\HHStorage.Models.EF\obj\Debug\netcoreapp2.0\HHStorage.Models.EF.csproj.CoreCompileInputs.cache
-E:\HHStorage\HHStorage.Models.EF\obj\Debug\netcoreapp2.0\HHStorage.Models.EF.AssemblyInfoInputs.cache
-E:\HHStorage\HHStorage.Models.EF\obj\Debug\netcoreapp2.0\HHStorage.Models.EF.AssemblyInfo.cs
-E:\HHStorage\HHStorage.Models.EF\obj\Debug\netcoreapp2.0\HHStorage.Models.EF.dll
-E:\HHStorage\HHStorage.Models.EF\obj\Debug\netcoreapp2.0\HHStorage.Models.EF.pdb
