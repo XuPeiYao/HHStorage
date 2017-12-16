@@ -6,3 +6,7 @@ E:\HHStorage\HHStorage\obj\Debug\netcoreapp2.0\HHStorage.csprojResolveAssemblyRe
 E:\HHStorage\HHStorage\obj\Debug\netcoreapp2.0\HHStorage.csproj.CoreCompileInputs.cache
 E:\HHStorage\HHStorage\obj\Debug\netcoreapp2.0\HHStorage.AssemblyInfoInputs.cache
 E:\HHStorage\HHStorage\obj\Debug\netcoreapp2.0\HHStorage.AssemblyInfo.cs
+E:\HHStorage\HHStorage\bin\Debug\netcoreapp2.0\HHStorage.xml
+E:\HHStorage\HHStorage\bin\Debug\netcoreapp2.0\HHStorage.pdb
+E:\HHStorage\HHStorage\obj\Debug\netcoreapp2.0\HHStorage.dll
+E:\HHStorage\HHStorage\obj\Debug\netcoreapp2.0\HHStorage.pdb

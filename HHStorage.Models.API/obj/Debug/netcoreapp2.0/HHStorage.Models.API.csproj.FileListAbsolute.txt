@@ -1,0 +1,5 @@
+E:\HHStorage\HHStorage.Models.API\bin\Debug\netcoreapp2.0\HHStorage.Models.API.deps.json
+E:\HHStorage\HHStorage.Models.API\bin\Debug\netcoreapp2.0\HHStorage.Models.API.dll
+E:\HHStorage\HHStorage.Models.API\obj\Debug\netcoreapp2.0\HHStorage.Models.API.csproj.CoreCompileInputs.cache
+E:\HHStorage\HHStorage.Models.API\obj\Debug\netcoreapp2.0\HHStorage.Models.API.AssemblyInfoInputs.cache
+E:\HHStorage\HHStorage.Models.API\obj\Debug\netcoreapp2.0\HHStorage.Models.API.AssemblyInfo.cs

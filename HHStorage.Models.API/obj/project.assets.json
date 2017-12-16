@@ -821,19 +821,6 @@
         "runtime": {
           "lib/netstandard1.3/System.Xml.XmlDocument.dll": {}
         }
-      },
-      "HHStorage.Models.API/1.0.0": {
-        "type": "project",
-        "framework": ".NETCoreApp,Version=v2.0",
-        "dependencies": {
-          "Newtonsoft.Json": "10.0.3"
-        },
-        "compile": {
-          "bin/placeholder/HHStorage.Models.API.dll": {}
-        },
-        "runtime": {
-          "bin/placeholder/HHStorage.Models.API.dll": {}
-        }
       }
     }
   },
@@ -3569,17 +3556,12 @@
         "system.xml.xmldocument.4.3.0.nupkg.sha512",
         "system.xml.xmldocument.nuspec"
       ]
-    },
-    "HHStorage.Models.API/1.0.0": {
-      "type": "project",
-      "path": "../HHStorage.Models.API/HHStorage.Models.API.csproj",
-      "msbuildProject": "../HHStorage.Models.API/HHStorage.Models.API.csproj"
     }
   },
   "projectFileDependencyGroups": {
     ".NETCoreApp,Version=v2.0": [
-      "HHStorage.Models.API >= 1.0.0",
-      "Microsoft.NETCore.App >= 2.0.0"
+      "Microsoft.NETCore.App >= 2.0.0",
+      "Newtonsoft.Json >= 10.0.3"
     ]
   },
   "packageFolders": {
@@ -3592,11 +3574,11 @@
       "hideWarningsAndErrors": true
     },
     "restore": {
-      "projectUniqueName": "E:\\HHStorage\\HHStorage.Client\\HHStorage.Client.csproj",
-      "projectName": "HHStorage.Client",
-      "projectPath": "E:\\HHStorage\\HHStorage.Client\\HHStorage.Client.csproj",
+      "projectUniqueName": "E:\\HHStorage\\HHStorage.Models.API\\HHStorage.Models.API.csproj",
+      "projectName": "HHStorage.Models.API",
+      "projectPath": "E:\\HHStorage\\HHStorage.Models.API\\HHStorage.Models.API.csproj",
       "packagesPath": "C:\\Users\\XuPeiYao\\.nuget\\packages\\",
-      "outputPath": "E:\\HHStorage\\HHStorage.Client\\obj\\",
+      "outputPath": "E:\\HHStorage\\HHStorage.Models.API\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
@@ -3614,11 +3596,7 @@
       },
       "frameworks": {
         "netcoreapp2.0": {
-          "projectReferences": {
-            "E:\\HHStorage\\HHStorage.Models.API\\HHStorage.Models.API.csproj": {
-              "projectPath": "E:\\HHStorage\\HHStorage.Models.API\\HHStorage.Models.API.csproj"
-            }
-          }
+          "projectReferences": {}
         }
       },
       "warningProperties": {
@@ -3635,6 +3613,10 @@
             "target": "Package",
             "version": "2.0",
             "autoReferenced": true
+          },
+          "Newtonsoft.Json": {
+            "target": "Package",
+            "version": "10.0.3"
           }
         },
         "imports": [
