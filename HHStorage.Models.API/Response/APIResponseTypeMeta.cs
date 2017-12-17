@@ -1,9 +1,11 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
 using Newtonsoft.Json;
+using Newtonsoft.Json.Converters;
 
 namespace HHStorage.Models.API.Response {
     /// <summary>
@@ -13,11 +15,13 @@ namespace HHStorage.Models.API.Response {
         /// <summary>
         /// 類型種類
         /// </summary>
+        [Required]
         public APIResponseTypes Type { get; set; } = APIResponseTypes.Object;
 
         /// <summary>
         /// 類型名稱
         /// </summary>
+        [Required]
         public string TypeName { get; set; } = nameof(Object);
 
         /// <summary>
