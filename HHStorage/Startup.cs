@@ -2,7 +2,10 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Security.Cryptography;
 using System.Threading.Tasks;
+using EzCoreKit.AspNetCore;
+using EzCoreKit.Cryptography;
 using HHStorage.Models.EF;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -12,6 +15,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using Microsoft.Extensions.PlatformAbstractions;
+using Microsoft.IdentityModel.Tokens;
 using Swashbuckle.AspNetCore.Swagger;
 
 namespace HHStorage {
@@ -28,6 +32,10 @@ namespace HHStorage {
                 options.UseSqlServer(Configuration["ConnectionString"]);
             });
 
+            services.AddEzJwtBearerWithDefaultSchema(
+                new SymmetricSecurityKey(Configuration["SecretKey"].ToHash<MD5>()),
+                "AnonChat");
+
             services.AddMvc();
 
             services.AddSwaggerGen(c => {
@@ -37,9 +45,21 @@ namespace HHStorage {
                         Version = "v1"
                     }
                  );
+                c.AddSecurityDefinition(
+                    "Bearer",
+                    new ApiKeyScheme() {
+                        In = "header",
+                        Description = "Please insert JWT with Bearer into field",
+                        Name = "Authorization",
+                        Type = "apiKey"
+                    });
+                void IncludeXmlComment(string filename) {
+                    c.IncludeXmlComments(Path.Combine(PlatformServices.Default.Application.ApplicationBasePath, filename));
 
-                var filePath = Path.Combine(PlatformServices.Default.Application.ApplicationBasePath, "HHStorage.xml");
-                c.IncludeXmlComments(filePath);
+                }
+                IncludeXmlComment("HHStorage.xml");
+                IncludeXmlComment("HHStorage.Models.API.xml");
+
             });
         }
 
@@ -48,6 +68,8 @@ namespace HHStorage {
             if (env.IsDevelopment()) {
                 app.UseDeveloperExceptionPage();
             }
+
+            app.UseAuthentication();
 
             app.UseMvc();
 
