@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using Newtonsoft.Json;
 
 namespace HHStorage.Models.EF {
     public partial class User {
@@ -11,6 +12,8 @@ namespace HHStorage.Models.EF {
         }
 
         public string Id { get; set; }
+
+        [JsonIgnore]
         public string Password { get; set; }
 
         public ICollection<File> File { get; set; }
