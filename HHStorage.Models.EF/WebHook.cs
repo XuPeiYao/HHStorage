@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace HHStorage.Models.EF {
     public partial class WebHook {
-        public Guid Id { get; set; }
+        public Guid Id { get; set; } = Guid.NewGuid();
         public string UserId { get; set; }
         public Guid? RepositoryId { get; set; }
         public string Url { get; set; }

@@ -7,9 +7,11 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HHStorage", "HHStorage\HHSt
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HHStorage.Client", "HHStorage.Client\HHStorage.Client.csproj", "{8FA6B716-798B-4B29-B6CA-AD98053748F1}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HHStorage.Models.API", "HHStorage.Models.API\HHStorage.Models.API.csproj", "{D6DDE2D1-E38F-478C-9C68-4A894A80A51A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HHStorage.Models.API", "HHStorage.Models.API\HHStorage.Models.API.csproj", "{D6DDE2D1-E38F-478C-9C68-4A894A80A51A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HHStorage.Models.EF", "HHStorage.Models.EF\HHStorage.Models.EF.csproj", "{4098F6AB-5F6B-482C-AA50-3874CC8EEBEB}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HHStorage.Models.EF", "HHStorage.Models.EF\HHStorage.Models.EF.csproj", "{4098F6AB-5F6B-482C-AA50-3874CC8EEBEB}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HHStorage.Exceptions", "HHStorage.Exceptions\HHStorage.Exceptions.csproj", "{BE740C7C-DC3A-43BC-B607-FE0FF241FB4D}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -33,6 +35,10 @@ Global
 		{4098F6AB-5F6B-482C-AA50-3874CC8EEBEB}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{4098F6AB-5F6B-482C-AA50-3874CC8EEBEB}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{4098F6AB-5F6B-482C-AA50-3874CC8EEBEB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BE740C7C-DC3A-43BC-B607-FE0FF241FB4D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BE740C7C-DC3A-43BC-B607-FE0FF241FB4D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BE740C7C-DC3A-43BC-B607-FE0FF241FB4D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BE740C7C-DC3A-43BC-B607-FE0FF241FB4D}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

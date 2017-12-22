@@ -9,10 +9,11 @@ namespace HHStorage.Models.API.Response {
     /// 分頁資訊
     /// </summary>
     public class APIResponsePaging {
-        [Required]
+
         /// <summary>
         /// 起始索引
         /// </summary>
+        [Required]
         public int Index { get; set; }
 
         /// <summary>
