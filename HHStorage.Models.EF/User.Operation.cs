@@ -63,7 +63,11 @@ namespace HHStorage.Models.EF {
             if (targetUser == null) {
                 throw new NotFoundException("找不到指定的使用者");
             }
-            context.RemoveRange(context.File.Where(x => x.UserId == id));
+
+            // 刪除檔案
+            foreach (var file in context.File.Where(x => x.UserId == id)) {
+                await EF.File.Delete(context, file.Id);
+            }
             context.RemoveRange(context.WebHook.Where(x => x.UserId == id));
             context.RemoveRange(context.Origin.Where(x => x.UserId == id));
             context.RemoveRange(context.Repository.Where(x => x.UserId == id));

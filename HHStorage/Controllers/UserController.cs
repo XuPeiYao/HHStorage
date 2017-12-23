@@ -108,6 +108,9 @@ namespace HHStorage.Controllers {
             if (User.Id == userId) {
                 throw new Exception("無法刪除自身帳號");
             }
+            if (User.Id.ToLower() == "admin") {
+                throw new Exception("管理員帳戶不可刪除");
+            }
 
             var user = Database.User.SingleOrDefault(x => x.Id == userId);
             if (user == null) {
