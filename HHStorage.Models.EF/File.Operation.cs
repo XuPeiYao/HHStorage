@@ -10,10 +10,14 @@ namespace HHStorage.Models.EF {
     public partial class File {
         public static string SaveFilePath = "/Files";
 
+        /// <summary>
+        /// 取得檔案連結
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         public static string GetFilePathById(Guid id) {
             return SaveFilePath + "/" + id;
         }
-
 
         /// <summary>
         /// 建立新檔案
@@ -23,7 +27,7 @@ namespace HHStorage.Models.EF {
         /// <param name="repositoryId">儲存庫唯一識別號</param>
         /// <param name="stream">檔案串流</param>
         /// <param name="contentType">檔案ContentType</param>
-        /// <param name="name">檔案名稱</param>
+        /// <param name="name">名稱</param>
         /// <param name="accessModifier">存取限制</param>
         /// <returns>檔案實例</returns>
         public static async Task<File> Create(

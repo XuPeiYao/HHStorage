@@ -71,6 +71,8 @@ namespace HHStorage.Models.EF {
             context.RemoveRange(context.WebHook.Where(x => x.UserId == id));
             context.RemoveRange(context.Origin.Where(x => x.UserId == id));
             context.RemoveRange(context.Repository.Where(x => x.UserId == id));
+
+            await context.SaveChangesAsync();
         }
     }
 }

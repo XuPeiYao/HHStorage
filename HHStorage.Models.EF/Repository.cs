@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
+using Newtonsoft.Json;
 
 namespace HHStorage.Models.EF {
     public partial class Repository {
@@ -12,7 +14,19 @@ namespace HHStorage.Models.EF {
         public Guid Id { get; set; } = Guid.NewGuid();
         public string Name { get; set; }
         public string UserId { get; set; }
-        public string AccessModifier { get; set; }
+
+        [JsonIgnore]
+        [Column("AccessModifier")]
+        public string AccessModifierString { get; set; }
+
+        public AccessModifierTypes AccessModifier {
+            get {
+                return Enum.Parse<AccessModifierTypes>(AccessModifierString);
+            }
+            set {
+                AccessModifierString = value.ToString();
+            }
+        }
 
         public User User { get; set; }
         public ICollection<File> File { get; set; }

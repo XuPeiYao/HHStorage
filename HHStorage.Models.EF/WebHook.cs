@@ -2,10 +2,28 @@
 using System.Collections.Generic;
 
 namespace HHStorage.Models.EF {
+    /// <summary>
+    /// 網頁掛勾
+    /// </summary>
     public partial class WebHook {
+        /// <summary>
+        /// 唯一識別號
+        /// </summary>
         public Guid Id { get; set; } = Guid.NewGuid();
+
+        /// <summary>
+        /// 使用者帳號
+        /// </summary>
         public string UserId { get; set; }
+
+        /// <summary>
+        /// 儲存庫唯一識別號
+        /// </summary>
         public Guid? RepositoryId { get; set; }
+
+        /// <summary>
+        /// 網頁掛勾網址
+        /// </summary>
         public string Url { get; set; }
 
         public Repository Repository { get; set; }

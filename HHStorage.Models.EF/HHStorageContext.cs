@@ -16,7 +16,7 @@ namespace HHStorage.Models.EF {
             modelBuilder.Entity<File>(entity => {
                 entity.Property(e => e.Id).HasDefaultValueSql("(newid())");
 
-                entity.Property(e => e.accessModifierString)
+                entity.Property(e => e.AccessModifierString)
                     .IsRequired()
                     .HasMaxLength(64);
 
@@ -69,7 +69,7 @@ namespace HHStorage.Models.EF {
             modelBuilder.Entity<Repository>(entity => {
                 entity.Property(e => e.Id).HasDefaultValueSql("(newid())");
 
-                entity.Property(e => e.AccessModifier)
+                entity.Property(e => e.AccessModifierString)
                     .IsRequired()
                     .HasMaxLength(64);
 
