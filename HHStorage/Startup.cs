@@ -28,8 +28,10 @@ namespace HHStorage {
     public class Startup {
         public static IConfiguration Configuration { get; private set; }
 
-        public Startup(IConfiguration configuration) {
+        public Startup(IConfiguration configuration, IHostingEnvironment env) {
             Configuration = configuration;
+
+            Models.EF.File.SaveFilePath = env.ContentRootPath + "/Files";
         }
 
         // This method gets called by the runtime. Use this method to add services to the container.
@@ -59,6 +61,7 @@ namespace HHStorage {
                         Name = "Authorization",
                         Type = "apiKey",
                     });
+                c.OperationFilter<FormFileOperationFilter>();
                 c.OperationFilter<OptionalRouteOperationFilter>();
 
                 void IncludeXmlComment(string filename) {
@@ -87,6 +90,8 @@ namespace HHStorage {
 
                         //檢查是否存在指定的對應
                         if (code == 401) {
+                            handler.Response.Headers.Add("Access-Control-Allow-Origin", "*");
+
                             handler.Response.ContentType = DeclareMIME.JavaScript_Object_Notation_JSON;
 
                             //寫出錯誤頁面內容
