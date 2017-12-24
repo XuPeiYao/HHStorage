@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.IdentityModel.Tokens.Jwt;
 using System.Linq;
 using System.Threading.Tasks;
+using EzCoreKit.MIME;
+using HHStorage.Exceptions;
 using HHStorage.Models.API.Response;
 using HHStorage.Models.EF;
 using Microsoft.AspNetCore.Mvc;
@@ -13,6 +15,9 @@ namespace HHStorage.Base {
     /// 控制器基底
     /// </summary>
     [Route("api/[controller]")]
+    [Produces(DeclareMIME.JavaScript_Object_Notation_JSON)]
+    [ProducesResponseType(200)]
+    [ProducesResponseType(500, Type = typeof(ExceptionBase))]
     public class BaseController : Controller {
         /// <summary>
         /// 資料庫內容
@@ -42,11 +47,10 @@ namespace HHStorage.Base {
 
         public override void OnActionExecuted(ActionExecutedContext context) {
             if (context.Exception != null) {
-                context.Result = new JsonResult(new APIResponse() {
-                    Result = new APIError() {
-                        Message = context.Exception.Message
-                    }
-                });
+                context.Result = new JsonResult(context.Exception) {
+                    StatusCode = 500
+                };
+
                 context.ExceptionHandled = true;
             }
 

@@ -19,6 +19,7 @@ namespace HHStorage.Models.EF {
         [Column("AccessModifier")]
         public string AccessModifierString { get; set; }
 
+        [NotMapped]
         public AccessModifierTypes AccessModifier {
             get {
                 return Enum.Parse<AccessModifierTypes>(AccessModifierString);
@@ -28,9 +29,16 @@ namespace HHStorage.Models.EF {
             }
         }
 
+        [JsonIgnore]
         public User User { get; set; }
+
+        [JsonIgnore]
         public ICollection<File> File { get; set; }
+
+        [JsonIgnore]
         public ICollection<Origin> Origin { get; set; }
+
+        [JsonIgnore]
         public ICollection<WebHook> WebHook { get; set; }
     }
 }

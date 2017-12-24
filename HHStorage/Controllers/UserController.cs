@@ -7,6 +7,7 @@ using System.Security.Cryptography;
 using System.Threading.Tasks;
 using EzCoreKit.Cryptography;
 using HHStorage.Base;
+using HHStorage.Exceptions;
 using HHStorage.Models.API.Request;
 using HHStorage.Models.API.Response;
 using HHStorage.Models.EF;
@@ -22,33 +23,39 @@ namespace HHStorage.Controllers {
         public UserController(HHStorageContext database) : base(database) { }
 
         /// <summary>
+        /// 取得所有使用者列表
+        /// </summary>
+        /// <returns>使用者列表</returns>
+        [Authorize]
+        [HttpGet]
+        [ProducesResponseType(200, Type = typeof(IEnumerable<User>))]
+        public async Task<IEnumerable<User>> GetList() {
+            return Database.User;
+        }
+
+        /// <summary>
         /// 登入系統並取得Token
         /// </summary>
         /// <param name="loginInfo">登入資訊</param>
         /// <returns>Bearer Token</returns>
         [HttpPost("login")]
-        public APIResponse Login([FromBody]UserLoginViewModel loginInfo) {
+        [ProducesResponseType(200, Type = typeof(string))]
+        public async Task<string> Login([FromBody]UserLoginViewModel loginInfo) {
             if (!ModelState.IsValid) {
-                throw new Exception("登入失敗");
+                throw new ParameterException();
             }
 
-            var hashedPassword = loginInfo.Password.ToHashString<MD5>();
-
-            var userInstance = Database.User.SingleOrDefault(
-                x => x.Id == loginInfo.UserId &&
-                     x.Password == hashedPassword);
+            var userInstance = await User.Login(Database, loginInfo.UserId, loginInfo.Password);
 
             if (userInstance == null) {
-                throw new Exception("登入失敗");
+                throw new AuthorizeException();
             }
 
             var claims = new[]{
                 new Claim(JwtRegisteredClaimNames.Sub, loginInfo.UserId)
             };
 
-            return new APIResponse() {
-                Result = EzCoreKit.AspNetCore.EzJwtBearerHelper.GenerateToken(DateTime.MaxValue, claims)
-            };
+            return EzCoreKit.AspNetCore.EzJwtBearerHelper.GenerateToken(DateTime.MaxValue, claims);
         }
 
         /// <summary>
@@ -58,43 +65,30 @@ namespace HHStorage.Controllers {
         /// <returns>建立結果</returns>
         [Authorize]
         [HttpPost]
-        public async Task<APIResponse> NewUser([FromBody]UserLoginViewModel userInfo) {
+        [ProducesResponseType(200, Type = typeof(User))]
+        public async Task<User> NewUser([FromBody]UserLoginViewModel userInfo) {
             if (!ModelState.IsValid) {
-                throw new Exception("資訊不全");
+                throw new ParameterException();
             }
 
-            var user = Database.User.SingleOrDefault(x => x.Id == userInfo.UserId);
-            if (user != null) {
-                throw new Exception("重複使用者");
-            }
-
-            await Database.User.AddAsync(new User() {
-                Id = userInfo.UserId,
-                Password = userInfo.Password ?? ""
-            });
-
-            await Database.SaveChangesAsync();
-
-            return new APIResponse();
+            return await User.Create(Database, userInfo.UserId, userInfo.Password);
         }
 
         /// <summary>
-        /// 更新使用者密碼
+        /// 更新目前使用者密碼
         /// </summary>
         /// <param name="password">新密碼</param>
         /// <returns>密碼更新結果</returns>
         [Authorize]
         [HttpPut("password")]
-        public async Task<APIResponse> UpdatePassword([FromBody]string password) {
+        public async Task UpdatePassword([FromBody]string password) {
             if (string.IsNullOrEmpty(password)) {
-                throw new Exception("密碼不該為空");
+                throw new NotNullException("密碼不該為null或空字串");
             }
 
             User.Password = password.ToHashString<MD5>();
 
             await Database.SaveChangesAsync();
-
-            return new APIResponse();
         }
 
         /// <summary>
@@ -104,24 +98,12 @@ namespace HHStorage.Controllers {
         /// <returns>刪除帳號結果</returns>
         [Authorize]
         [HttpDelete("{userId}")]
-        public async Task<APIResponse> Delete([FromRoute]string userId) {
+        public async Task Delete([FromRoute]string userId) {
             if (User.Id == userId) {
                 throw new Exception("無法刪除自身帳號");
             }
-            if (User.Id.ToLower() == "admin") {
-                throw new Exception("管理員帳戶不可刪除");
-            }
 
-            var user = Database.User.SingleOrDefault(x => x.Id == userId);
-            if (user == null) {
-                throw new Exception("找不到指定使用者");
-            } else {
-                Database.User.Remove(user);
-            }
-
-            await Database.SaveChangesAsync();
-
-            return new APIResponse();
+            await User.Delete(Database, userId);
         }
     }
 }

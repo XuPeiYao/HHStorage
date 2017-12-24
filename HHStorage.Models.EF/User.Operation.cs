@@ -9,6 +9,10 @@ using HHStorage.Exceptions;
 
 namespace HHStorage.Models.EF {
     public partial class User {
+        public bool IsSuperUser() {
+            return Id.ToLower() == "admin";
+        }
+
         /// <summary>
         /// 建立新使用者帳戶
         /// </summary>

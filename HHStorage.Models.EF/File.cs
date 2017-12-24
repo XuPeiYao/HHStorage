@@ -45,6 +45,7 @@ namespace HHStorage.Models.EF {
         [Column("AccessModifier")]
         public string AccessModifierString { get; set; }
 
+        [NotMapped]
         public AccessModifierTypes AccessModifier {
             get {
                 return Enum.Parse<AccessModifierTypes>(AccessModifierString);
@@ -57,11 +58,13 @@ namespace HHStorage.Models.EF {
         /// <summary>
         /// 存取限制詞
         /// </summary>
+        [JsonIgnore]
         public Repository Repository { get; set; }
 
         /// <summary>
         /// 使用者
         /// </summary>
+        [JsonIgnore]
         public User User { get; set; }
     }
 }

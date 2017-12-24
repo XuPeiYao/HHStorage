@@ -8,7 +8,7 @@ namespace HHStorage.Models.API.Response {
     /// <summary>
     /// 分頁資訊
     /// </summary>
-    public class APIResponsePaging {
+    public class APIPaging<TElement> {
 
         /// <summary>
         /// 起始索引
@@ -27,5 +27,11 @@ namespace HHStorage.Models.API.Response {
         /// </summary>
         [Required]
         public int TotalLength { get; set; }
+
+        /// <summary>
+        /// 分頁內容
+        /// </summary>
+        [Required]
+        public IEnumerable<TElement> Result { get; set; }
     }
 }

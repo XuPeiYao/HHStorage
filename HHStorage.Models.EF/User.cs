@@ -28,21 +28,25 @@ namespace HHStorage.Models.EF {
         /// <summary>
         /// 檔案
         /// </summary>
+        [JsonIgnore]
         public ICollection<File> File { get; set; }
 
         /// <summary>
         /// 存取域
         /// </summary>
+        [JsonIgnore]
         public ICollection<Origin> Origin { get; set; }
 
         /// <summary>
         /// 儲存庫
         /// </summary>
+        [JsonIgnore]
         public ICollection<Repository> Repository { get; set; }
 
         /// <summary>
         /// 網頁掛勾
         /// </summary>
+        [JsonIgnore]
         public ICollection<WebHook> WebHook { get; set; }
     }
 }

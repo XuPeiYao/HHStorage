@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using Newtonsoft.Json;
 
 namespace HHStorage.Models.EF {
     /// <summary>
@@ -29,11 +30,13 @@ namespace HHStorage.Models.EF {
         /// <summary>
         /// 儲存庫
         /// </summary>
+        [JsonIgnore]
         public Repository Repository { get; set; }
 
         /// <summary>
         /// 使用者
         /// </summary>
+        [JsonIgnore]
         public User User { get; set; }
     }
 }
