@@ -19,11 +19,9 @@ namespace HHStorage.Extensions {
                     continue;
                 }
 
-
                 var name = GetParameterName(parameter);
 
                 var parameterConfig = operation.Parameters.SingleOrDefault(x => x.Name == name);
-
 
                 parameterConfig.Required = context.ApiDescription.RelativePath.IndexOf("{" + name + "}") > -1;
 
