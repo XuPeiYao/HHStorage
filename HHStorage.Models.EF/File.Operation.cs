@@ -16,7 +16,18 @@ namespace HHStorage.Models.EF {
         /// <param name="id"></param>
         /// <returns></returns>
         public static string GetFilePathById(Guid id) {
+            if (!Directory.Exists(SaveFilePath)) {
+                Directory.CreateDirectory(SaveFilePath);
+            }
             return SaveFilePath + "/" + id;
+        }
+
+        /// <summary>
+        /// 取得檔案串流物件
+        /// </summary>
+        /// <returns>檔案串流</returns>
+        public FileStream GetFileStream() {
+            return new FileStream(GetFilePathById(this.Id), FileMode.Open);
         }
 
         /// <summary>
@@ -42,9 +53,7 @@ namespace HHStorage.Models.EF {
             if (userId == null) {
                 throw new NotNullException("使用者帳號不該為null");
             }
-            if (contentType == null) {
-                throw new NotNullException("ContentType不該為null");
-            }
+
             if (!context.Repository.Any(x => x.Id == repositoryId && x.UserId == userId)) {
                 throw new NotFoundException("找不到該使用者指定儲存庫");
             }
