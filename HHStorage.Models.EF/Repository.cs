@@ -17,7 +17,7 @@ namespace HHStorage.Models.EF {
 
         [JsonIgnore]
         [Column("AccessModifier")]
-        public string AccessModifierString { get; set; }
+        public string AccessModifierString { get; set; } = "Private";
 
         [NotMapped]
         public AccessModifierTypes AccessModifier {

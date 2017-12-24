@@ -18,7 +18,7 @@ namespace HHStorage.Models.EF {
             if (userId == null) {
                 throw new NotNullException("使用者帳號不該為null");
             }
-            if (context.User.Any(x => x.Id == userId)) {
+            if (!context.User.Any(x => x.Id == userId)) {
                 throw new NotFoundException("找不到指定使用者");
             }
             if (name == null) {

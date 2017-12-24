@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.IdentityModel.Tokens.Jwt;
 using System.Linq;
 using System.Security.Claims;
@@ -40,7 +41,7 @@ namespace HHStorage.Controllers {
         /// <returns>Bearer Token</returns>
         [HttpPost("login")]
         [ProducesResponseType(200, Type = typeof(string))]
-        public async Task<string> Login([FromBody]UserLoginViewModel loginInfo) {
+        public async Task<string> Login([Required][FromBody]UserLoginViewModel loginInfo) {
             if (!ModelState.IsValid) {
                 throw new ParameterException();
             }
@@ -66,7 +67,7 @@ namespace HHStorage.Controllers {
         [Authorize]
         [HttpPost]
         [ProducesResponseType(200, Type = typeof(User))]
-        public async Task<User> NewUser([FromBody]UserLoginViewModel userInfo) {
+        public async Task<User> NewUser([Required][FromBody]UserLoginViewModel userInfo) {
             if (!ModelState.IsValid) {
                 throw new ParameterException();
             }
@@ -81,7 +82,7 @@ namespace HHStorage.Controllers {
         /// <returns>密碼更新結果</returns>
         [Authorize]
         [HttpPut("password")]
-        public async Task UpdatePassword([FromBody]string password) {
+        public async Task UpdatePassword([Required][FromBody]string password) {
             if (string.IsNullOrEmpty(password)) {
                 throw new NotNullException("密碼不該為null或空字串");
             }
@@ -98,7 +99,7 @@ namespace HHStorage.Controllers {
         /// <returns>刪除帳號結果</returns>
         [Authorize]
         [HttpDelete("{userId}")]
-        public async Task Delete([FromRoute]string userId) {
+        public async Task Delete([Required][FromRoute]string userId) {
             if (User.Id == userId) {
                 throw new Exception("無法刪除自身帳號");
             }

@@ -9,6 +9,7 @@ using EzCoreKit.AspNetCore;
 using EzCoreKit.Cryptography;
 using EzCoreKit.MIME;
 using HHStorage.Exceptions;
+using HHStorage.Extensions;
 using HHStorage.Models.EF;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -58,6 +59,8 @@ namespace HHStorage {
                         Name = "Authorization",
                         Type = "apiKey",
                     });
+                c.OperationFilter<OptionalRouteOperationFilter>();
+
                 void IncludeXmlComment(string filename) {
                     c.IncludeXmlComments(Path.Combine(PlatformServices.Default.Application.ApplicationBasePath, filename));
                 }

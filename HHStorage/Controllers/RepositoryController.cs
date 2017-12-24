@@ -9,6 +9,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using HHStorage.Models.API.Response;
 using System.ComponentModel;
+using System.ComponentModel.DataAnnotations;
 
 namespace HHStorage.Controllers {
     /// <summary>
@@ -25,10 +26,11 @@ namespace HHStorage.Controllers {
         /// <param name="take">取得筆數</param>
         /// <returns>儲存庫列表的分頁結果</returns>
         [Authorize]
-        [HttpGet("{userId?}")]
+        [HttpGet]
+        [HttpGet("{userId}")]
         [ProducesResponseType(200, Type = typeof(APIPaging<Repository>))]
         public async Task<APIPaging<Repository>> GetPagingList(
-            string userId,
+            [FromRoute]string userId,
             [FromQuery]int? skip = 0,
             [FromQuery]int? take = 10) {
             var user = this.User;
@@ -55,9 +57,11 @@ namespace HHStorage.Controllers {
         /// <param name="userId">使用者帳號</param>
         /// <returns>儲存庫列表</returns>
         [Authorize]
+        [HttpGet("list")]
         [HttpGet("{userId?}/list")]
         [ProducesResponseType(200, Type = typeof(IEnumerable<Repository>))]
-        public async Task<IEnumerable<Repository>> GetList(string userId) {
+        public async Task<IEnumerable<Repository>> GetList(
+            [FromRoute]string userId) {
             var user = this.User;
             if (userId != null) {
                 if (this.User.IsSuperUser()) {
@@ -68,6 +72,82 @@ namespace HHStorage.Controllers {
             }
 
             return Database.Repository.Where(x => x.User == user);
+        }
+
+        /// <summary>
+        /// 在指定使用者或目前使用者建立新的儲存庫
+        /// </summary>
+        /// <param name="userId">使用者帳號</param>
+        /// <param name="name">名稱</param>
+        /// <returns>儲存庫實例</returns>
+        [Authorize]
+        [HttpPost]
+        [HttpPost("{userId}")]
+        [ProducesResponseType(200, Type = typeof(Repository))]
+        public async Task<Repository> CreateRepository(
+            [FromRoute]string userId,
+            [Required][FromBody]string name) {
+            var user = this.User;
+            if (userId != null) {
+                if (this.User.IsSuperUser()) {
+                    user = Database.User.SingleOrDefault(x => x.Id == userId);
+                    if (user == null) {
+                        throw new NotFoundException("找不到指定使用者");
+                    }
+                } else if (user.Id != userId) {
+                    throw new AuthorizeException();
+                }
+            }
+
+            return await Repository.Create(Database, user.Id, name);
+        }
+
+        /// <summary>
+        /// 更新儲存庫
+        /// </summary>
+        /// <param name="repository">儲存庫實例更新資訊</param>
+        /// <returns>儲存庫實例</returns>
+        [Authorize]
+        [HttpPut]
+        [ProducesResponseType(200, Type = typeof(Repository))]
+        public async Task<Repository> Update([FromBody]Repository repository) {
+            if (!ModelState.IsValid) {
+                throw new ParameterException();
+            }
+
+            var repos = Database.Repository.SingleOrDefault(x => x.Id == repository.Id);
+            if (repos != null) throw new NotFoundException();
+
+            if (!User.IsSuperUser() && repos.UserId != User.Id) {
+                throw new AuthorizeException();
+            }
+
+
+            repos.Name = repository.Name;
+            repos.UserId = repository.UserId;
+            repos.AccessModifier = repository.AccessModifier;
+
+            await Database.SaveChangesAsync();
+
+            return repos;
+        }
+
+        /// <summary>
+        /// 刪除儲存庫
+        /// </summary>
+        /// <param name="id">儲存庫唯一識別號</param>
+        /// <returns>非同步操作</returns>
+        [Authorize]
+        [HttpDelete("{id}")]
+        public async Task Delete(Guid id) {
+            var repos = Database.Repository.SingleOrDefault(x => x.Id == id);
+            if (repos == null) throw new NotFoundException();
+
+            if (!User.IsSuperUser() && repos.UserId != User.Id) {
+                throw new AuthorizeException();
+            }
+
+            await Repository.Delete(Database, id);
         }
     }
 }
