@@ -10,6 +10,7 @@ using Microsoft.AspNetCore.Mvc;
 using HHStorage.Models.API.Response;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
+using Microsoft.EntityFrameworkCore;
 
 namespace HHStorage.Controllers {
     /// <summary>
@@ -58,7 +59,7 @@ namespace HHStorage.Controllers {
         /// <returns>儲存庫列表</returns>
         [Authorize]
         [HttpGet("list")]
-        [HttpGet("{userId?}/list")]
+        [HttpGet("{userId}/list")]
         [ProducesResponseType(200, Type = typeof(IEnumerable<Repository>))]
         public async Task<IEnumerable<Repository>> GetList(
             [FromRoute]string userId) {
@@ -148,6 +149,71 @@ namespace HHStorage.Controllers {
             }
 
             await Repository.Delete(Database, id);
+        }
+
+        /// <summary>
+        /// 取得指定儲存庫存取域列表
+        /// </summary>
+        /// <param name="repositoryId">儲存庫唯一識別號</param>
+        /// <returns>存取域列表</returns>
+        [Authorize]
+        [HttpGet("{repositoryId}/origin")]
+        [ProducesResponseType(200, Type = typeof(IEnumerable<Origin>))]
+        public async Task<IEnumerable<Origin>> GetOriginList(Guid repositoryId) {
+            var repos = Database.Repository.Include(x => x.Origin).SingleOrDefault(x => x.Id == repositoryId);
+
+            if (repos == null) throw new NotFoundException();
+
+            if (!User.IsSuperUser() && repos.UserId != User.Id) {
+                throw new AuthorizeException();
+            }
+
+            return repos.Origin;
+        }
+
+        /// <summary>
+        /// 更新存取域
+        /// </summary>
+        /// <param name="origin">存取域實例更新資訊</param>
+        /// <returns>存取域實例</returns>
+        [Authorize]
+        [HttpPut("origin")]
+        [ProducesResponseType(200, Type = typeof(Origin))]
+        public async Task<Origin> UpdateOrigin([FromBody]Origin origin) {
+            var originInstance = Database.Origin.Include(x => x.Repository).SingleOrDefault(x => x.Id == origin.Id);
+
+            if (originInstance == null) throw new NotFoundException();
+
+            if (!User.IsSuperUser() && originInstance.UserId != User.Id) {
+                throw new AuthorizeException();
+            }
+
+            originInstance.OriginURI = origin.OriginURI;
+
+            await Database.SaveChangesAsync();
+
+            return originInstance;
+        }
+
+        /// <summary>
+        /// 刪除存取域
+        /// </summary>
+        /// <param name="originId">存取域唯一識別號</param>
+        /// <returns>非同步操作</returns>
+        [Authorize]
+        [HttpDelete("{originId}")]
+        public async Task DeleteOrigin([FromRoute]Guid originId) {
+            var originInstance = Database.Origin.Include(x => x.Repository).SingleOrDefault(x => x.Id == originId);
+
+            if (originInstance == null) throw new NotFoundException();
+
+            if (!User.IsSuperUser() && originInstance.UserId != User.Id) {
+                throw new AuthorizeException();
+            }
+
+            Database.Origin.Remove(originInstance);
+
+            await Database.SaveChangesAsync();
         }
     }
 }
